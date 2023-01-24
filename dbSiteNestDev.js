@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
-const PORT = process.env.PORT
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 const userRoutes = require('./src/routes/userRoutes')
@@ -31,5 +30,5 @@ app.get ('/teste', (req, res)=> {
 })
 
 app.listen (port, ()=>{
-    console.log(`✔ serviço rodando em: https://nest-app/heroku.app ${PORT}`)
+    console.log(`✔ serviço rodando em: ${port}`)
 })
