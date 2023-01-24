@@ -10,12 +10,6 @@ const productsRoutes = require('./src/routes/productsRoutes')
 const path = require('path')
 const cors = require('cors')
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
-
-
 app.use(express.json())
 app.use(cors())
 
@@ -30,6 +24,4 @@ app.get ('/teste', (req, res)=> {
     res.send("Hi Pedro")
 })
 
-app.listen (PORT, ()=>{
-    console.log(`✔ serviço rodando em: https://nest-app/heroku.app ${PORT}`)
-})
+app.listen (process.env.PORT || 3000)
