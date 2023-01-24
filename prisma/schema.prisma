@@ -1,0 +1,111 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("JAWSDB_URL")
+}
+
+model enderecos {
+
+  id            Int         @id @default(autoincrement())
+  rua           String      @db.VarChar(200)
+  numero        Int
+  bairro        String      @db.VarChar(30)
+  cidade        String?      @db.VarChar(60)
+  estado        String?      @db.VarChar(30)
+  usuarioId     Int?        @map("usuario_id")
+  usuarioPjId   Int?        @map("usuario_pj_id")
+  usuario      usuarios?   @relation(fields: [usuarioId], references: [id])
+  usuariopj    usuariospj? @relation(fields: [usuarioPjId], references: [id])
+  carrinho      carrinho[]
+
+}
+
+model usuarios {
+  id              Int         @id @default(autoincrement())
+  createdAt       DateTime    @default(now())
+  updateddAt      DateTime    @default(now())
+  cpf             String      @unique @map("cpf")   @db.VarChar(15)
+  celular         String      @db.VarChar(17)
+  email           String      @unique @map("email") @db.VarChar(100)
+  senha           String      @db.VarChar(20)
+  dataNascimento  DateTime?   @db.Date @map("data_nascimento")
+  nomeCompleto    String?     @db.VarChar(200)  @map("nome_completo")
+  repetirSenha    String      @db.VarChar(20)   @map("repetir_senha")
+  enderecos       enderecos[]
+  finalizarCompra finalizarCompra[]
+  carrinho        carrinho[]
+  Favoritos       produtosFavoritos[] 
+
+}
+
+model usuariospj {
+  cnpj                  String      @unique @map("cnpj")  @db.VarChar(16) 
+  email                 String      @unique @map("email") @db.VarChar(100)
+  senha                 String      @db.VarChar(20)
+  id                    Int         @id @default(autoincrement())
+  inscricaoEstadual     String?     @db.VarChar(12)   @map("inscricao_estadual")
+  nomeCompRespCompra    String?     @db.VarChar(120)  @map("nome_comp_resp_compra")
+  nomeFantasia          String?     @db.VarChar(100)  @map("nome_fantasia")
+  razaoSocial           String?     @db.VarChar(100)  @map("razao_social")
+  repetirSenha          String      @db.VarChar(20)   @map("repetir_senha")
+  createdAt           DateTime    @default(now())
+  updateddAt          DateTime    @updatedAt
+  enderecos             enderecos[]
+  carrinho              carrinho[]
+  finalizarCompra       finalizarCompra[]
+}
+
+model produtos {
+  id            Int         @id @default(autoincrement())
+  nome          String     @db.VarChar(50)
+  typeCpu       String?    @db.VarChar(10) @map("type_cpu")
+  descricao     String?     @db.VarChar(254)
+  categoria     String?    @db.VarChar(30)
+  valor         String      @db.VarChar(50)
+  createdAt     DateTime    @default(now())
+  updateddAt    DateTime    @updatedAt
+  carrinho      carrinho[]
+  Favoritos       produtosFavoritos[] 
+  
+}
+
+model carrinho{
+  id                  Int         @id @default(autoincrement())
+  qtdProdutos         Int         @map("qtd_produtos")
+  idProdutos          Int         @map("id_produtos")
+  idUsuario           Int         @map("id_usuario")
+  idUsuarioPj         Int         @map("id_usuario_pj")
+  valorTotal          String      @db.VarChar(30) @map("valor_total")
+  produtos            produtos    @relation(fields: [idProdutos], references: [id])
+  usuario             usuarios    @relation(fields: [idUsuario], references: [id])
+  usuarioPj           usuariospj  @relation(fields: [idUsuarioPj], references: [id])
+  finalizarCompra     finalizarCompra[]
+  enderecoId          Int         @map("endereco_id")
+  endereco            enderecos   @relation(fields: [enderecoId], references: [id])
+
+}
+
+model finalizarCompra {
+  numeroPedido      Int         @id @default(autoincrement()) @map("numero_pedido") 
+  idCarrinho        Int         @map("id_carrinho")
+  carrinho          carrinho    @relation(fields: [idCarrinho],references: [id])
+  idUsuario         Int         @map("id_usuario")
+  usuario           usuarios    @relation(fields: [idUsuario],references: [id])
+  idUsuarioPj       Int         @map("id_usuario_pj")
+  usuarioPj         usuariospj  @relation(fields: [idUsuarioPj],references: [id])
+}
+
+model produtosFavoritos {
+  id            Int   @id @default(autoincrement())
+  idProdutos    Int   @map("id_produtos")
+  produtos      produtos @relation(fields: [idProdutos], references: [id])
+  idUsuario     Int  @map("id_usuario")
+  usuario       usuarios @relation(fields: [idUsuario], references: [id])
+
+}
+
