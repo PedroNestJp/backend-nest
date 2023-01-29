@@ -11,8 +11,7 @@ const PORT = process.env.PORT
 const APP_URL = process.env.APP_URL
 
 app.use(express.json())
-app.use(cors())
-    
+
 const userRoutes = require('./src/routes/userRoutes')
 const userPjRoutes = require('./src/routes/userPjRoutes')
 const productsRoutes = require('./src/routes/productsRoutes')
@@ -25,6 +24,7 @@ app.get ('/teste', (req, res)=> {
     res.send("Hi Pangola")
 })
 
+app.use(cors())
 app.listen (process.env.PORT || 8000, ()=>{
     console.log(`✔ service run on address ${APP_URL} at the port: ${PORT}`)
 })
