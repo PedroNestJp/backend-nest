@@ -4,5 +4,7 @@ package-lock.json
 .yarn
 yarn.lock
 .yarnrc.yml
+.pnp.cjs
+.pnp.loader.mjs
 
 
