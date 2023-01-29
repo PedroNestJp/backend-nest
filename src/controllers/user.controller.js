@@ -21,7 +21,8 @@ const createUser = async (req, res) => {
         const usuarios = await prisma.usuarios.create({data})
         if(usuarios){
             res.send('Usuário criado com sucesso ✅')
-        }
+        } 
+      
     }
 
 const deleteUser = async (req, res)=> {
