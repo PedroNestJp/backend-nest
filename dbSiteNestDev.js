@@ -12,12 +12,16 @@ const PORT = process.env.PORT
 const APP_URL = process.env.APP_URL
 
 app.use(express.json())
+app.use(cors())
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 const userRoutes = require('./src/routes/userRoutes')
 const userPjRoutes = require('./src/routes/userPjRoutes')
 const productsRoutes = require('./src/routes/productsRoutes')
 
-app.use(cors())
 
 app.use(userRoutes)
 app.use(userPjRoutes)
