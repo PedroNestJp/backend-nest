@@ -21,7 +21,7 @@ router.put('/userpj/update/:id', userPjController.upUserPJ)
 
 
 router.get('/user/:id', userController.getUser)
-router.get('/users', userController.getUsers)
+router.get('users', userController.getUsers)
 router.post('/user/create', userController.createUser)
 router.delete('/user/delete/:id', userController.deleteUser)
 router.put('/user/update/:id', userController.upUser)
