@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const router = Router()
+const cors = require('cors')
 
 const userController = require('../controllers/user.controller')
 const userPjController = require('../controllers/userPj')
@@ -22,7 +23,7 @@ router.put('/userpj/update/:id', userPjController.upUserPJ)
 
 router.get('/user/:id', userController.getUser)
 router.get('/users', userController.getUsers)
-router.post('/user/create', userController.createUser)
+router.post('/user/create', cors(), userController.createUser)
 router.delete('/user/delete/:id', userController.deleteUser)
 router.put('/user/update/:id', userController.upUser)
 router.put('/users/update/:id', userController.upUsers)
