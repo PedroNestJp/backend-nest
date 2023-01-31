@@ -6,8 +6,16 @@ const Router = require('./src/routes/routes');
 const PORT = process.env.PORT
 const APP_URL = process.env.APP_URL
 
+app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
+app.del('/products/:id', cors(), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+ 
+
 app.use(cors())
 app.use(express.json())
+
+app.options('*', cors())
 
 app.use('/', Router)
 app.post('/user/create', cors())
