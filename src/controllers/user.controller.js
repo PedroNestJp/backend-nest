@@ -20,6 +20,7 @@ const createUser = async (req, res) => {
         const data = {  ...req.body,   enderecos: {create: [req.body.enderecos]}}
         const usuarios = await prisma.usuarios.create({data})
         if(usuarios){
+            response.set('Access-Control-Allow-Origin', '*');
             res.send('Usuário criado com sucesso ✅')
         } 
       
