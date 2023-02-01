@@ -5,9 +5,9 @@ const cors = require("cors");
 const Router = require('./src/routes/routes');
 const PORT = process.env.PORT
 const APP_URL = process.env.APP_URL
-import "./cors.config"
+import Headers from "./cors.config"
 
-app.use(cors())
+app.use(cors(), Headers)
 
 app.use(express.json())
 app.use('/', Router)
