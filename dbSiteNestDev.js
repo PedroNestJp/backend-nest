@@ -9,9 +9,6 @@ const APP_URL = process.env.APP_URL
 
 app.use(express.json())
 app.use(cors())
-app.options('*', cors())
-
-
 app.use('/', Router)
 
 // app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
