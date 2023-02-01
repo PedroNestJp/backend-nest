@@ -12,7 +12,7 @@ app.use(cors())
 app.options('*', cors())
 
 
-app.use('/', cors(), Router)
+app.use('/', Router)
 
 // app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
 // app.del('/products/:id', cors(), function (req, res, next) {
