@@ -4,7 +4,7 @@ require('dotenv').config()
 const cors = require("cors");
 const Router = require('./src/routes/routes');
 const PORT = process.env.PORT
-const APP_URL = process.env.APP_URL
+// const APP_URL = process.env.APP_URL
 
 app.use(cors())
 app.use(function (req, res, next) {
