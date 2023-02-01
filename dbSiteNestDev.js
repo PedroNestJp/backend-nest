@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
 app.use(express.json())
 app.use(Router)
 
-// app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
+app.options('/:path*', cors()) // enable pre-flight request for DELETE request
 // app.del('/products/:id', cors(), function (req, res, next) {
 //  res.json({msg: 'This is CORS-enabled for all origins!'})
 // })
