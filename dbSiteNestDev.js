@@ -5,7 +5,7 @@ const cors = require("cors");
 const Router = require('./src/routes/routes');
 const PORT = process.env.PORT
 const APP_URL = process.env.APP_URL
-import Headers from "./cors.config"
+const Headers = require("./cors.config")
 
 app.use(cors(), Headers)
 
