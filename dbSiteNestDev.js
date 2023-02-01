@@ -8,9 +8,9 @@ const APP_URL = process.env.APP_URL
 const Headers = require("./cors.config")
 
 app.use(cors(), Headers)
-
 app.use(express.json())
-app.use('/', Router)
+
+app.use(Router)
 
 app.listen (process.env.PORT || 8000, ()=>{
     console.log(`✔ service run on address ${APP_URL} at the port: ${PORT}`)
