@@ -9,103 +9,108 @@ datasource db {
   url      = env("JAWSDB_URL")
 }
 
-model enderecos {
+model address {
 
-  id            Int         @id @default(autoincrement())
-  rua           String      @db.VarChar(200)
-  numero        Int
-  bairro        String      @db.VarChar(30)
-  cidade        String?      @db.VarChar(60)
-  estado        String?      @db.VarChar(30)
-  usuarioId     Int?        @map("usuario_id")
-  usuarioPjId   Int?        @map("usuario_pj_id")
-  usuario      usuarios?   @relation(fields: [usuarioId], references: [id])
-  usuariopj    usuariospj? @relation(fields: [usuarioPjId], references: [id])
-  carrinho      carrinho[]
-
-}
-
-model usuarios {
-  id              Int         @id @default(autoincrement())
-  createdAt       DateTime    @default(now())
-  updateddAt      DateTime    @default(now())
-  cpf             String      @unique @map("cpf")   @db.VarChar(15)
-  celular         String      @db.VarChar(17)
-  email           String      @unique @map("email") @db.VarChar(100)
-  senha           String      @db.VarChar(20)
-  dataNascimento  DateTime?   @db.Date @map("data_nascimento")
-  nomeCompleto    String?     @db.VarChar(200)  @map("nome_completo")
-  repetirSenha    String      @db.VarChar(20)   @map("repetir_senha")
-  enderecos       enderecos[]
-  finalizarCompra finalizarCompra[]
-  carrinho        carrinho[]
-  Favoritos       produtosFavoritos[] 
+  id            Int           @id @default(autoincrement())
+  street        String        @db.VarChar(200)
+  number        Int
+  district      String        @db.VarChar(30)
+  city          String?       @db.VarChar(60)
+  state         String?       @db.VarChar(30)
+  userId        Int?          @map("user_id")
+  userPjId      Int?          @map("user_pj_id")
+  user          user?         @relation(fields: [userId], references: [id])
+  userpj        userPj?       @relation(fields: [userPjId], references: [id])
+  cart          cart[]
 
 }
 
-model usuariospj {
-  cnpj                  String      @unique @map("cnpj")  @db.VarChar(16) 
-  email                 String      @unique @map("email") @db.VarChar(100)
-  senha                 String      @db.VarChar(20)
-  id                    Int         @id @default(autoincrement())
+model user {
+  id                  Int         @id                     @default(autoincrement())
+  createdAt           DateTime    @default(now())
+  updateddAt          DateTime    @default(now())
+  cpf                 String      @unique @map("cpf")     @db.VarChar(15)
+  cellPhone           String      @db.VarChar(17)
+  email               String      @unique @map("email")   @db.VarChar(100)
+  password            String      @db.VarChar(20)
+  dateOfBirth         String?     @db.VarChar(30)         @map("date_birth")
+  fullName            String?     @db.VarChar(200) 
+  repeatPassword      String      @db.VarChar(20)         @map("repeat_password")
+  acceptTermOne       Boolean?    @default(false)         @map("accept_term_one")
+  acceptTermTwo       Boolean?    @default(false)         @map("accept_term_two")
+  address             address[]
+  checkout            checkout[]
+  cart                cart[]
+  favorites           productsFavorites[]
+
+}
+
+model userPj {
+  cnpj                  String      @unique  @db.VarChar(16)  @map("cnpj") 
+  email                 String      @unique  @db.VarChar(100) @map("email")
+  password              String      @db.VarChar(20)
+  id                    Int         @id               @default(autoincrement())
   inscricaoEstadual     String?     @db.VarChar(12)   @map("inscricao_estadual")
-  nomeCompRespCompra    String?     @db.VarChar(120)  @map("nome_comp_resp_compra")
+  fullNameRespBuy       String?     @db.VarChar(120)  @map("nome_comp_resp_compra")
   nomeFantasia          String?     @db.VarChar(100)  @map("nome_fantasia")
   razaoSocial           String?     @db.VarChar(100)  @map("razao_social")
-  repetirSenha          String      @db.VarChar(20)   @map("repetir_senha")
-  createdAt           DateTime    @default(now())
-  updateddAt          DateTime    @updatedAt
-  enderecos             enderecos[]
-  carrinho              carrinho[]
-  finalizarCompra       finalizarCompra[]
+  repeatPassword        String      @db.VarChar(20)   @map("repeat_password")
+  createdAt             DateTime    @default(now())
+  updateddAt            DateTime    @updatedAt
+  address               address[]
+  cart                  cart[]
+  checkout              checkout[]
 }
 
-model produtos {
+model products {
   id            Int         @id @default(autoincrement())
-  nome          String     @db.VarChar(50)
-  typeCpu       String?    @db.VarChar(10) @map("type_cpu")
-  descricao     String?     @db.VarChar(254)
-  categoria     String?    @db.VarChar(30)
-  valor         String      @db.VarChar(50)
+  name          String      @db.VarChar(50)
+  typeCpu       String?     @db.VarChar(10) @map("type_cpu")
+  description   String?     @db.VarChar(254)
+  category      String?     @db.VarChar(30)
+  price         String      @db.VarChar(50)
+  rating        Float       @db.Float()
+  numReviews    Int         
   createdAt     DateTime    @default(now())
   updateddAt    DateTime    @updatedAt
-  carrinho      carrinho[]
-  Favoritos       produtosFavoritos[] 
+  cart          cart[]
+  Favorites     productsFavorites[] 
   
 }
 
-model carrinho{
-  id                  Int         @id @default(autoincrement())
-  qtdProdutos         Int         @map("qtd_produtos")
-  idProdutos          Int         @map("id_produtos")
-  idUsuario           Int         @map("id_usuario")
-  idUsuarioPj         Int         @map("id_usuario_pj")
-  valorTotal          String      @db.VarChar(30) @map("valor_total")
-  produtos            produtos    @relation(fields: [idProdutos], references: [id])
-  usuario             usuarios    @relation(fields: [idUsuario], references: [id])
-  usuarioPj           usuariospj  @relation(fields: [idUsuarioPj], references: [id])
-  finalizarCompra     finalizarCompra[]
-  enderecoId          Int         @map("endereco_id")
-  endereco            enderecos   @relation(fields: [enderecoId], references: [id])
+model cart{
+  id                  Int             @id @default(autoincrement())
+  qtdproducts         Int             @map("qtd_products")
+  idproducts          Int             @map("id_products")
+  idUser              Int             @map("id_user")
+  idUserPj            Int             @map("id_user_pj")
+  amount              String          @db.VarChar(30)
+  products            products        @relation(fields: [idproducts], references: [id])
+  user                user            @relation(fields: [idUser], references: [id])
+  userPj              userPj          @relation(fields: [idUserPj], references: [id])
+  checkout            checkout[]
+  enderecoId          Int             @map("endereco_id")
+  address             address         @relation(fields: [enderecoId], references: [id])
 
 }
 
-model finalizarCompra {
-  numeroPedido      Int         @id @default(autoincrement()) @map("numero_pedido") 
-  idCarrinho        Int         @map("id_carrinho")
-  carrinho          carrinho    @relation(fields: [idCarrinho],references: [id])
-  idUsuario         Int         @map("id_usuario")
-  usuario           usuarios    @relation(fields: [idUsuario],references: [id])
-  idUsuarioPj       Int         @map("id_usuario_pj")
-  usuarioPj         usuariospj  @relation(fields: [idUsuarioPj],references: [id])
+model checkout {
+  requestNumber     Int         @id @default(autoincrement()) @map("request_number") 
+  idCart            Int         @map("id_cart")
+  cart              cart        @relation(fields: [idCart],references: [id])
+  idUser            Int         @map("id_user")
+  user              user        @relation(fields: [idUser],references: [id])
+  idUserPj          Int         @map("id_user_pj")
+  userPj            userPj      @relation(fields: [idUserPj],references: [id])
 }
 
-model produtosFavoritos {
-  id            Int   @id @default(autoincrement())
-  idProdutos    Int   @map("id_produtos")
-  produtos      produtos @relation(fields: [idProdutos], references: [id])
-  idUsuario     Int  @map("id_usuario")
-  usuario       usuarios @relation(fields: [idUsuario], references: [id])
+model productsFavorites {
+  id            Int       @id @default(autoincrement())
+  idproducts    Int       @map("id_products")
+  products      products  @relation(fields: [idproducts], references: [id])
+  idUser        Int       @map("id_user")
+  user          user      @relation(fields: [idUser], references: [id])
 
 }
 
+                                                                                                                                                                                                                                      

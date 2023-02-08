@@ -12,7 +12,7 @@ app.use(cors())
 app.use('/', Router)
 
  app.options('/products/:id', cors()) // enable pre-flight request for DELETE request
- app.del('/products/:id', cors(), function (req, res, next) {
+ app.delete('/products/:id', cors(), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
  })
  
