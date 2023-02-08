@@ -28,7 +28,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/', Router)
 
-app.options('/user/create', cors()) // enable pre-flight request for DELETE request
+app.post('/user/create', cors()) // enable pre-flight request for DELETE request
 app.post('/user/create', cors(), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
