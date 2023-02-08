@@ -2,40 +2,40 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const getProducts = async (req, res)=> {
-    const produtos = await prisma.produtos.findMany()
-    console.log('All Products', produtos)
-    if (produtos){
-        res.send(produtos)
+    const products = await prisma.products.findMany()
+    console.log('All Products', products)
+    if (products){
+        res.send(products)
     }
 }
 
 const getproduct = async (req, res)=> {
     const id = parseInt( req.params.id )
-    const produtos = await prisma.produtos.findUnique({where:{id}})
-    if (produtos){res.send(produtos)}
+    const products = await prisma.products.findUnique({where:{id}})
+    if (products){res.send(products)}
 
 }
 
 const createProducts = async (req, res)=> {
     const data = req.body
-    const produtos = await prisma.produtos.createMany({data})
-    if (produtos){ 
+    const products = await prisma.products.createMany({data})
+    if (products){ 
         res.send("Products created succesfully ✅")
     }
 }
 
 const createProduct = async (req, res)=> {
     const data = req.body
-    const produtos = await prisma.produtos.create({data})
-    if (produtos){ 
+    const products = await prisma.products.create({data})
+    if (products){ 
         res.send("Product created succesfully ✅")
     }
 }
 
 const deleteProduct = async (req, res)=> {
     const id = parseInt(req.params.id)
-    const produtos = await prisma.produtos.delete({where:{id}})
-    if (produtos){
+    const products = await prisma.products.delete({where:{id}})
+    if (products){
     res.send("Product deleted succesfully ✅")
     }
 }
@@ -43,7 +43,7 @@ const deleteProduct = async (req, res)=> {
 const upProduct = async (req, res)=> {
     const id = parseInt(req.params.id)
     const data = req.body
-    const result = await prisma.produtos.update({where:{id}, data})
+    const result = await prisma.products.update({where:{id}, data})
     console.log(data, result)
     try { 
         if(result) {res.send(`the product whoose id is: ${id}, was succesfully updated✅}`) }
