@@ -13,10 +13,7 @@ app.get('/products/:id', function (req, res, next) {
     res.json({msg: 'This is CORS-enabled for all origins!'})
   })
   
-app.get('/', Router)
-app.post('/', Router)
-app.put('/', Router)
-app.delete('/', Router)
+app.use('/', Router)
 
 app.listen (process.env.PORT || 8000, ()=>{
     console.log(`✔ service run on address ${APP_URL} at the port: ${PORT}`)
