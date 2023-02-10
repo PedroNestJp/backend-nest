@@ -11,14 +11,6 @@ app.use(express.json());
 
 app.use(cors());
 
-const productController = require('../controllers/product.controller')
-
-app.get('/products', productController.getProducts)
-app.get('/products/:id', productController.getproduct)
-app.post('/product/create', productController.createProducts)
-app.delete('/product/delete/:id', productController.deleteProduct)
-app.put('/product/update/:id', productController.upProduct)
-
 app.use('/', Routes);
 
 
