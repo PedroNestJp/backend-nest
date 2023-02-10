@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(cors());
 
-const productController = require('../backend-nest/src/controllers/product.controller')
+const productController = require('../controllers/product.controller')
 
 app.get('/products', productController.getProducts)
 app.get('/products/:id', productController.getproduct)
