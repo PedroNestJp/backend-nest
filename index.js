@@ -1,20 +1,19 @@
-require('dotenv').config()
-const express = require('express')
-const cors = require("cors");
-const app = express()
-const Router = require('./src/routes/routes');
-const PORT = process.env.PORT
+const express = require('express');
+const app = express();
+require('dotenv').config();
+const PORT = process.env.PORT;
 const APP_URL = process.env.APP_URL
+const cors = require('cors');
+const Routes = require('./src/routes/routes');
 
-app.use(express.json())
-app.use(cors())
 
-app.get('/products/:id', function (req, res, next) {
-    res.json({msg: 'This is CORS-enabled for all origins!'})
-  })
-  
-app.use('/', Router)
+app.use(express.json());
 
-app.listen (process.env.PORT || 8000, ()=>{
+app.use(cors());
+
+app.use('/', Routes);
+
+
+app.listen (PORT || 8000, () => {
     console.log(`✔ service run on address ${APP_URL} at the port: ${PORT}`)
 })
