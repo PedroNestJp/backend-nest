@@ -11,7 +11,8 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use('/', Routes);
+app.set('Access-Control-Allow-Origin', '*')
+app.use('/', Routes )
 
 
 app.listen (PORT || 8000, () => {

@@ -69,8 +69,8 @@ model products {
   description   String?     @db.VarChar(254)
   category      String?     @db.VarChar(30)
   price         String      @db.VarChar(50)
-  rating        Float       @db.Float()
-  numReviews    Int         
+  rating        String      @db.VarChar(3)
+  numReviews    Int?         
   createdAt     DateTime    @default(now())
   updateddAt    DateTime    @updatedAt
   cart          cart[]
