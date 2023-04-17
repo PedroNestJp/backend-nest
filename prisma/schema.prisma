@@ -68,8 +68,7 @@ model products {
   typeCpu       String?     @db.VarChar(10) @map("type_cpu")
   description   String?     @db.VarChar(254)
   category      String?     @db.VarChar(30)
-  price         String      @db.VarChar(50)
-  rating        Int?        
+  price         String      @db.VarChar(50)    
   numReviews    Int?         
   createdAt     DateTime    @default(now())
   updateddAt    DateTime    @updatedAt
