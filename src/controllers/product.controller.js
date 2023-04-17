@@ -11,7 +11,7 @@ const getProducts = async (req, res)=> {
     console.log('All Products', products)
     if (products){
         res.send(products)
-    }
+    } else (res.send("erro ao buscar itens"))
 }
 
 const getproduct = async (req, res)=> {
