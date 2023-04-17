@@ -74,7 +74,7 @@ model products {
   createdAt     DateTime    @default(now())
   updateddAt    DateTime    @updatedAt
   cart          cart[]
-  Favorites     productsFavorites[] 
+  Favorites     productsFavorites[]
   
 }
 

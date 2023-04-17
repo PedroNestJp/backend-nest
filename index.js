@@ -9,9 +9,12 @@ const Routes = require('./src/routes/routes');
 
 app.use(express.json());
 
-app.use(cors());
-
-app.set('Access-Control-Allow-Origin', '*')
+app.use(
+    cors({
+      origin: "*",
+    })
+  );
+  app.use(json());
 app.use('/', Routes )
 
 
