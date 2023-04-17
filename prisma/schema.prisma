@@ -72,7 +72,7 @@ model products {
   rating        String?     @db.VarChar(50)    
   numReviews    Int?         
   createdAt     DateTime    @default(now())
-  updateddAt    DateTime    @updatedAt
+  updateddAt    DateTime    @default(now())
   cart          cart[]
   Favorites     productsFavorites[]
   
