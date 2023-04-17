@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("JAWSDB_MARIA_URL")
+  url      = env("JAWSDB_URL")
 }
 
 model address {
