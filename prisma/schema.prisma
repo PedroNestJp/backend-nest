@@ -69,7 +69,7 @@ model products {
   description   String?     @db.VarChar(254)
   category      String?     @db.VarChar(30)
   price         String      @db.VarChar(50)
-  rating        String?      @db.VarChar(3)
+  rating        Int?        
   numReviews    Int?         
   createdAt     DateTime    @default(now())
   updateddAt    DateTime    @updatedAt
